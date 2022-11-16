@@ -4,6 +4,14 @@
 
 [Android 10 中的隐私权变更](https://developer.android.com/about/versions/10/privacy/changes) 
 
+|      | 隐私权变更                                                   | 受影响的应用                         | 缓解策略                                                     |
+| :--- | :----------------------------------------------------------- | :----------------------------------- | ------------------------------------------------------------ |
+| ✅    | **分区存储** 针对外部存储的过滤视图，可提供对特定于应用的文件和媒体集合的访问权限 | 访问和共享外部存储中的文件的应用     | 使用特定于应用的目录和媒体集合目录 [了解详情](https://developer.android.com/about/versions/10/privacy/changes#scoped-storage) |
+| ✅    | **增强了用户对位置权限的控制力** 仅限前台权限，可让用户更好地控制应用对设备位置信息的访问权限 | 在后台时请求访问用户位置信息的应用   | 确保在没有后台位置信息更新的情况下优雅降级 使用 Android 10 中引入的权限在后台获取位置信息 [了解详情](https://developer.android.com/about/versions/10/privacy/changes#app-access-device-location) |
+| ✅    | **系统执行后台 Activity** 针对从后台启动 Activity 实施了限制 | 不需要用户互动就启动 Activity 的应用 | 使用通知触发的 Activity [了解详情](https://developer.android.com/about/versions/10/privacy/changes#background-activity-starts) |
+| ✅    | **不可重置的硬件标识符** 针对访问设备序列号和 IMEI 实施了限制 | 访问设备序列号或 IMEI 的应用         | 使用用户可以重置的标识符 [了解详情](https://developer.android.com/about/versions/10/privacy/changes#non-resettable-device-ids) |
+| ✅    | **无线扫描权限** 访问某些 WLAN、WLAN 感知和蓝牙扫描方法需要获得精确位置权限 | 使用 WLAN API 和蓝牙 API 的应用      | 针对相关使用场景请求 `ACCESS_FINE_LOCATION` 权限 [了解详情](https://developer.android.com/about/versions/10/privacy/changes#location-telephony-bluetooth-wifi) |
+
 上面是官网的AndroidQ的隐私权变更链接，本文章只针对部分重大隐私权限变更做出解释说明。
 
 ## [从后台启动 Activity 的限制 ](https://developer.android.com/guide/components/activities/background-starts)
@@ -1106,7 +1114,7 @@ APP应该将想要保留的文件通过`MediaStore`接口保存到公共目录�
 
 申请`ACCESS_MEDIA_LOCATION`权限，并使用`MediaStore.setRequireOriginal()`接口更新文件Uri，请参见[图片位置信息](#图片位置信息)。
 
-##### ota升级问题
+##### ota升级问题（数据迁移）
 
 > 问题原因：
 
@@ -1120,9 +1128,12 @@ ota升级后，APP被卸载，重新安装后无法访问到APP数据。
 
 > 解决方案：
 
-APP应该修改保存文件的方式，不再使用路径的方式直接保存，而是采用`MediaStore`接口将文件保存到对应的公共目录下。
+- APP应该修改保存文件的方式，不再使用路径的方式直接保存，而是采用`MediaStore`接口将文件保存到对应的公共目录下。
 
-在Fota升级前，可以将APP 的用户历史数据通过`MediaStore`接口迁移到公共目录下。此外，APP应当改变访问`App-specific`目录以外的文件的方式，请使用`MediaStore` 接口或者`SAF`。
+- 在ota升级前，可以将APP 的用户历史数据通过`MediaStore`接口迁移到公共目录下。此外，APP应当改变访问`App-specific`目录以外的文件的方式，请使用`MediaStore` 接口或者`SAF`。
+
+- 针对只有应用自己访问并且应用卸载后允许删除的文件，需要迁移文件到应用私有目录文件，可以通过 `File path` 方式访问文件资源，降低适配成本。
+- 允许其他应用访问，并且应用卸载后不允许删除的文件，文件需要存储在共享目录，应用可以选择是否进行目录整改，将文件迁移到 `Androidq` 要求的 `media` 集合目录。
 
 #### 分享处理
 
