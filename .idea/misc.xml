@@ -5,6 +5,7 @@
       <map>
         <entry key="androidq/src/main/res/layout/androidq_activity_scoped_storage_layout.xml" value="0.2421875" />
         <entry key="androidq/src/main/res/layout/androidq_activity_storage_access_framework.xml" value="0.35" />
+        <entry key="androidr/src/main/res/layout/activity_android_rmain.xml" value="0.35" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.12708333333333333" />
         <entry key="app/src/main/res/layout/main_item_text.xml" value="0.2708333333333333" />
       </map>

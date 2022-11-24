@@ -12,8 +12,8 @@ android {
         targetSdk Dependency.BuilderTargetSdk
         versionCode 1
         versionName "1.0"
-        consumerProguardFiles "consumer-rules.pro"
     }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -38,5 +38,5 @@ dependencies {
     implementation Dependency.FRAGMENT_KTX
     implementation Dependency.APPCOMPAT
     implementation Dependency.MATERIAL
-    implementation Dependency.DOCUMENT_FILE
+    implementation Dependency.CONSTRAINT_LAYOUT
 }

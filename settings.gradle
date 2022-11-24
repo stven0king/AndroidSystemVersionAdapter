@@ -9,3 +9,4 @@ dependencyResolutionManagement {
 rootProject.name = "AndroidSystemVersionAdapter"
 include ':app'
 include ':androidq'
+include ':androidr'

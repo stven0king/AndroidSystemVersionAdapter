@@ -11,6 +11,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.tzx.androidq.ScopedStorageActivity
 import com.tzx.androidq.StorageAccessFrameworkActivity
+import com.tzx.androidr.AndroidRMainActivity
 
 /**
  * Created by Tanzhenxing
@@ -21,7 +22,8 @@ class AllActivityViewAdapter(private val mContext: Context) : RecyclerView.Adapt
     private val mLayoutInflater: LayoutInflater = LayoutInflater.from(mContext)
     private val activityModels: Array<ActivityModel> = arrayOf(
         ActivityModel("StorageAccessFramework", StorageAccessFrameworkActivity::class.java),
-        ActivityModel("ScopedStorage", ScopedStorageActivity::class.java)
+        ActivityModel("ScopedStorage", ScopedStorageActivity::class.java),
+        ActivityModel("AndroidRTest", AndroidRMainActivity::class.java)
     )
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NormalTextViewHolder {
         return NormalTextViewHolder(mLayoutInflater.inflate(R.layout.main_item_text, parent, false))
