@@ -61,6 +61,11 @@ tasks.withType(Checkstyle).each { checkstyleTask ->
         }
     }
 }
-println("project.preBuild.dependsOn projectCheckStyle")
 // preBuild的时候，执行projectCheckStyle任务
-project.preBuild.dependsOn projectCheckStyle
+//project.preBuild.dependsOn projectCheckStyle
+project.afterEvaluate {
+    if (tasks.findByName("preBuild") != null) {
+        project.preBuild.dependsOn projectCheckStyle
+        println("project.preBuild.dependsOn projectCheckStyle")
+    }
+}

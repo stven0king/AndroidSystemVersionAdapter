@@ -19,13 +19,9 @@ task clean(type: Delete) {
     delete rootProject.buildDir
 }
 subprojects {
-    beforeEvaluate { project ->
+    Project project ->
         println("=====${project.name}")
-        project.afterEvaluate {
-            println("=====${project.name}========beforeEvaluate")
-            apply from: rootProject.file('checkstyle.gradle')
-            apply from: rootProject.file('detekt.gradle')
-            apply from: rootProject.file('ktlink.gradle')
-        }
-    }
+        apply from: rootProject.file('checkstyle.gradle')
+        apply from: rootProject.file('detekt.gradle')
+        apply from: rootProject.file('ktlink.gradle')
 }

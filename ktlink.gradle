@@ -57,5 +57,9 @@ ktlint {
 //    ktlintRuleset files("/path/to/custom/rulseset.jar")
 //    ktlintRuleset project(":chore:project-ruleset")
 //}
-println("project.preBuild.dependsOn tasks.findByName(\"ktlintCheck\")")
-project.preBuild.dependsOn tasks.findByName("ktlintCheck")
+project.afterEvaluate {
+    if (tasks.findByName("preBuild") != null) {
+        project.preBuild.dependsOn tasks.findByName("ktlintCheck")
+        println("project.preBuild.dependsOn tasks.findByName(\"ktlintCheck\")")
+    }
+}

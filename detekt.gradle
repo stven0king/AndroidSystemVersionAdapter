@@ -93,14 +93,9 @@ tasks.named("detekt").configure {
         }
     }
 }
-println("project.preBuild.dependsOn tasks.findByName(\"detekt\")")
-project.preBuild.dependsOn tasks.findByName("detekt")
-//beforeEvaluate {
-//    if (tasks.findByName("preBuild") != null) {
-//        println("detekt")
-//
-//    } else {
-//        println("detekt---")
-//    }
-//}
-//
+project.afterEvaluate {
+    if (tasks.findByName("preBuild") != null) {
+        project.preBuild.dependsOn tasks.findByName("detekt")
+        println("project.preBuild.dependsOn tasks.findByName(\"detekt\")")
+    }
+}
