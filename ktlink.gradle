@@ -1,0 +1,61 @@
+apply plugin: "org.jlleitschuh.gradle.ktlint"
+//import org.jlleitschuh.gradle.ktlint.reporter.ReporterType
+ktlint {
+    android = true
+    verbose = true
+    outputToConsole = true
+    outputColorName = "RED"
+    enableExperimentalRules = true
+    ignoreFailures = true
+    //["final-newline", "max-line-length"]
+    disabledRules = []
+    reporters {
+        reporter "plain"
+        reporter "checkstyle"
+        reporter "sarif"
+    }
+}
+//ktlint {
+//    version = "0.22.0"
+//    debug = true
+//    verbose = true
+//    android = false
+//    outputToConsole = true
+//    outputColorName = "RED"
+//    ignoreFailures = true
+//    enableExperimentalRules = true
+//    additionalEditorconfigFile = file("/some/additional/.editorconfig")
+//    disabledRules = ["final-newline"]
+//    baseline = file("my-project-ktlint-baseline.xml")
+//    reporters {
+//        reporter "plain"
+//        reporter "checkstyle"
+//        reporter "sarif"
+//
+//        customReporters {
+//            "csv" {
+//                fileExtension = "csv"
+//                dependency = project(":project-reporters:csv-reporter")
+//            }
+//            "yaml" {
+//                fileExtension = "yml"
+//                dependency = "com.example:ktlint-yaml-reporter:1.0.0"
+//            }
+//        }
+//    }
+//    kotlinScriptAdditionalPaths {
+//        include fileTree("scripts/")
+//    }
+//    filter {
+//        exclude("**/generated/**")
+//        include("**/kotlin/**")
+//    }
+//}
+//
+//dependencies {
+//    ktlintRuleset "com.github.username:rulseset:master-SNAPSHOT"
+//    ktlintRuleset files("/path/to/custom/rulseset.jar")
+//    ktlintRuleset project(":chore:project-ruleset")
+//}
+println("project.preBuild.dependsOn tasks.findByName(\"ktlintCheck\")")
+project.preBuild.dependsOn tasks.findByName("ktlintCheck")

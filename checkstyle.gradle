@@ -1,0 +1,66 @@
+/**
+ * The Checkstyle Plugin
+ *
+ * Gradle plugin that performs quality checks on your project's Java source files using Checkstyle
+ * and generates reports from these checks.
+ *
+ * Tasks:
+ * Run Checkstyle against {rootDir}/src/main/java: ./gradlew checkstyleMain
+ * Run Checkstyle against {rootDir}/src/test/java: ./gradlew checkstyleTest
+ *
+ * Reports:
+ * Checkstyle reports can be found in {project.buildDir}/build/reports/checkstyle
+ *
+ * Configuration:
+ * Checkstyle is very configurable. The configuration file is located at {rootDir}/config/checkstyle/checkstyle.xml
+ *
+ * Additional Documentation:
+ * https://docs.gradle.org/current/userguide/checkstyle_plugin.html
+ */
+
+apply plugin: 'checkstyle'
+checkstyle {
+    //configFile = rootProject.file('checkstyle.xml')
+    configProperties.checkstyleSuppressionsPath = rootProject.file("suppressions.xml").absolutePath
+    // The source sets to be analyzed as part of the check and build tasks.
+    // Use 'sourceSets = []' to remove Checkstyle from the check and build tasks.
+    //sourceSets = [project.sourceSets.main, project.sourceSets.test]
+    // The version of the code quality tool to be used.
+    // The most recent version of Checkstyle can be found at https://github.com/checkstyle/checkstyle/releases
+    //toolVersion = "8.22"
+    // Whether or not to allow the build to continue if there are warnings.
+    ignoreFailures = true
+    // Whether or not rule violations are to be displayed on the console.
+    showViolations = true
+}
+task projectCheckStyle(type: Checkstyle) {
+    group 'verification'
+    classpath = files()
+    source 'src'
+    //include '**/*.java'
+    //exclude '**/gen/**'
+    reports {
+        html {
+            enabled = true
+            destination file("${project.buildDir}/reports/checkstyle/checkstyle.html")
+        }
+        xml {
+            enabled = true
+            destination file("${project.buildDir}/reports/checkstyle/checkstyle.xml")
+        }
+    }
+}
+tasks.withType(Checkstyle).each { checkstyleTask ->
+    checkstyleTask.doLast {
+        reports.all { report ->
+            // 检查生成报告中是否有错误
+            def outputFile = report.destination
+            if (outputFile.exists() && outputFile.text.contains("<error ") && !checkstyleTask.ignoreFailures) {
+                throw new GradleException("There were checkstyle errors! For more info check $outputFile")
+            }
+        }
+    }
+}
+println("project.preBuild.dependsOn projectCheckStyle")
+// preBuild的时候，执行projectCheckStyle任务
+project.preBuild.dependsOn projectCheckStyle

@@ -3,6 +3,7 @@ buildscript {
     repositories {
         google()
         mavenCentral()
+        gradlePluginPortal()
     }
     dependencies {
         classpath "com.android.tools.build:gradle:7.0.4"
@@ -10,9 +11,21 @@ buildscript {
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
+        classpath "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:1.22.0"
+        classpath "org.jlleitschuh.gradle:ktlint-gradle:11.0.0"
     }
 }
-
 task clean(type: Delete) {
     delete rootProject.buildDir
+}
+subprojects {
+    beforeEvaluate { project ->
+        println("=====${project.name}")
+        project.afterEvaluate {
+            println("=====${project.name}========beforeEvaluate")
+            apply from: rootProject.file('checkstyle.gradle')
+            apply from: rootProject.file('detekt.gradle')
+            apply from: rootProject.file('ktlink.gradle')
+        }
+    }
 }

@@ -1,0 +1,106 @@
+apply plugin: 'io.gitlab.arturbosch.detekt'
+detekt {
+    // Version of Detekt that will be used. When unspecified the latest detekt
+    // version found will be used. Override to stay on the same version.
+    toolVersion = "1.22.0"
+
+    // The directories where detekt looks for source files.
+    // Defaults to `files("src/main/java", "src/test/java", "src/main/kotlin", "src/test/kotlin")`.
+    source = files(
+            "src/main/kotlin",
+            "src/main/java"
+    )
+
+    // Builds the AST in parallel. Rules are always executed in parallel.
+    // Can lead to speedups in larger projects. `false` by default.
+    parallel = false
+
+    // Define the detekt configuration(s) you want to use.
+    // Defaults to the default detekt configuration.
+    config = files("$rootDir/config/detekt/detekt-ruleset.yml")
+
+    // Applies the config files on top of detekt's default config file. `false` by default.
+    buildUponDefaultConfig = false
+
+    // Turns on all the rules. `false` by default.
+    allRules = false
+
+    // Specifying a baseline file. All findings stored in this file in subsequent runs of detekt.
+    //baseline = file("path/to/baseline.xml")
+
+    // Disables all default detekt rulesets and will only run detekt with custom rules
+    // defined in plugins passed in with `detektPlugins` configuration. `false` by default.
+    disableDefaultRuleSets = false
+
+    // Adds debug output during task execution. `false` by default.
+    debug = false
+
+    // If set to `true` the build does not fail when the
+    // maxIssues count was reached. Defaults to `false`.
+    ignoreFailures = true
+
+    // Android: Don't create tasks for the specified build types (e.g. "release")
+    //ignoredBuildTypes = ["release"]
+
+    // Android: Don't create tasks for the specified build flavor (e.g. "production")
+    //ignoredFlavors = ["production"]
+
+    // Android: Don't create tasks for the specified build variants (e.g. "productionRelease")
+    //ignoredVariants = ["productionRelease"]
+
+    // Specify the base path for file paths in the formatted reports.
+    // If not set, all file paths reported will be absolute file path.
+    //basePath = projectDir
+}
+//task myDetekt(type: io.gitlab.arturboosch.detekt.Detekt) {
+//    group 'verification'
+//    description = "Runs a custom detekt build."
+//    setSource(files("src/main/kotlin", "src/test/kotlin"))
+//    config.setFrom(files("$rootDir/config.yml"))
+//    debug = true
+//    reports {
+//        xml {
+//            destination = file("build/reports/mydetekt.xml")
+//        }
+//        html.destination = file("build/reports/mydetekt.html")
+//    }
+//    include '**/*.kt'
+//    include '**/*.kts'
+//    exclude 'resources/'
+//    exclude 'build/'
+//}
+tasks.named("detekt").configure {
+    reports {
+        // Enable/Disable XML report (default: true)
+        xml.required.set(true)
+        xml.outputLocation.set(file("build/reports/detekt/detekt.xml"))
+        // Enable/Disable HTML report (default: true)
+        html.required.set(true)
+        html.outputLocation.set(file("build/reports/detekt/detekt.html"))
+        // Enable/Disable TXT report (default: true)
+        txt.required.set(true)
+        txt.outputLocation.set(file("build/reports/detekt/detekt.txt"))
+        // Enable/Disable SARIF report (default: false)
+        sarif.required.set(true)
+        sarif.outputLocation.set(file("build/reports/detekt/detekt.sarif"))
+        // Enable/Disable MD report (default: false)
+        md.required.set(true)
+        md.outputLocation.set(file("build/reports/detekt/detekt.md"))
+        custom {
+            // The simple class name of your custom report.
+            reportId = "CustomJsonReport"
+            outputLocation.set(file("build/reports/detekt/detekt.json"))
+        }
+    }
+}
+println("project.preBuild.dependsOn tasks.findByName(\"detekt\")")
+project.preBuild.dependsOn tasks.findByName("detekt")
+//beforeEvaluate {
+//    if (tasks.findByName("preBuild") != null) {
+//        println("detekt")
+//
+//    } else {
+//        println("detekt---")
+//    }
+//}
+//
