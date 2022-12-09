@@ -7,8 +7,8 @@ package com.tzx.buildsrc;
  */
 public class Dependency {
 
-    public static final int BuilderCompileSdk = 29;
-    public static final int BuilderTargetSdk = 29;
+    public static final int BuilderCompileSdk = 30;
+    public static final int BuilderTargetSdk = 30;
     public static final int BuilderMinSdk = 21;
 
     public static final String ACTIVITY_KTX = "androidx.activity:activity-ktx:1.2.0-alpha03";
