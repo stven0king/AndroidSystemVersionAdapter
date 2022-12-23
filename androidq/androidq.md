@@ -197,7 +197,7 @@ APP需要这些运行时权限的情景发生了变化，且各种情况下外�
 
   APP的私密目录，APP访问自己的`App-specific`目录时无需任何权限。
 
-<img src="img/Scoped Storage.png" style="zoom:75%;" />
+![Scoped Storage.png](img/Scoped%20Storage.png)
 
 ### 存储空间视图模式
 
@@ -359,7 +359,7 @@ private fun createAppSpecificFolder() {
 
 ##### MediaStore Uri和路径对应表
 
-<img src="img/Uri-path.png" style="zoom:100%;" />
+![Uri-path.png](img/Uri-path.png)
 
 MediaStore提供下列Uri，可以用MediaProvider查询对应的Uri数据。在AndroidQ上，所有的外部存储设备都会被命令，即Volume Name。MediaStore可以通过Volume Name 获取对应的Uri。
 

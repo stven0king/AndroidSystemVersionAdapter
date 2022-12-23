@@ -1,5 +1,7 @@
 # AndroidR
 
+![](img/android11.png)
+
 `Android 11` 基于 `Android` 早期版本构建，增加了多种功能和更新，以保障用户安全并提高透明度和可控性。所有开发者都应查看隐私功能并测试他们的应用。具体影响可能会因每个应用的核心功能、目标平台和其他因素而异。
 
 [Android 11介绍](https://developer.android.com/about/versions/11)
@@ -237,7 +239,7 @@ val isHasStoragePermission= Environment.isExternalStorageManager()
 - 如果用户将应用转为后台运行，应用可以在短时间内继续访问相关数据。
 - 如果您在 activity 可见时启动了一项前台服务，并且用户随后将您的应用转到后台，那么您的应用可以继续访问相关数据，直到该前台服务停止。
 
-<img src="/Users/tanzx/AndroidStudioWorkSpace/GitHub/AndroidSystemVersionAdapter/androidr/img/one-time-prompt.svg" style="zoom:50%;" />
+![one-time-prompt](img/one-time-prompt.png)
 
 ### 应用进程在权限被撤消时终止
 
@@ -373,11 +375,11 @@ private fun initTestLocationFunc() {
 
 > `android11以下的设备`，申请前台和后台位置权限（任意targetSdkVersion）：
 
-<img src="/Users/tanzx/AndroidStudioWorkSpace/GitHub/AndroidSystemVersionAdapter/androidr/img/android910-requestlocation.png" style="zoom:50%;" />
+![android910-requestlocation.png](img/android910-requestlocation.png)
 
 > `Android11及以上的设备`，targetSdkVersion<=29(Android 10),申请前台和后台位置权限：
 
-<img src="/Users/tanzx/AndroidStudioWorkSpace/GitHub/AndroidSystemVersionAdapter/androidr/img/android11-requestloction-device11.png" style="zoom:50%;" />
+![android11-requestloction-device11.png](img/android11-requestloction-device11.png)
 
 > `Android11及以上的设备`，targetSdkVersion=30(Android 11),申请前台和后台位置权限：
 
@@ -404,15 +406,15 @@ private fun initTestBackGroundLocationFunc() {
 
 - 先执行申请前台权限（targetSdkVersion不区分）；
 
-<img src="/Users/tanzx/AndroidStudioWorkSpace/GitHub/AndroidSystemVersionAdapter/androidr/img/android11-requestforebackground-device11.png" style="zoom:50%;" />
+![android11-requestforebackground-device11.png](img/android11-requestforebackground-device11.png)
 
 - 后执行申请后台权限（targetSdkVersion=29）；
 
-<img src="/Users/tanzx/AndroidStudioWorkSpace/GitHub/AndroidSystemVersionAdapter/androidr/img/android10-requestbackground-device11.png" style="zoom:50%;" />
+![android10-requestbackground-device11.png](img/android10-requestbackground-device11.png)
 
 - 后执行申请后台权限（targetSdkVersion=30）；
 
-<img src="/Users/tanzx/AndroidStudioWorkSpace/GitHub/AndroidSystemVersionAdapter/androidr/img/android11-requestbackground-device11.png" style="zoom:50%;" />
+![android11-requestbackground-device11.png](img/android11-requestbackground-device11.png)
 
 看完以上的实现效果，我们很清楚知道了该怎么进行后台定位权限的申请说明了吧。
 
