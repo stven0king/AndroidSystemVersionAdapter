@@ -1,3 +1,4 @@
 # AndroidSystemVersionAdapter
 
-[AndroidQ下，使用MediaStore和SAF的示例](androidq/androidq.md)
+[AndroidQ兼容性适配指南](androidq/androidq.md)
+[AndroidR兼容性适配指南](androidr/androidr.md)
